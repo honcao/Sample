@@ -161,7 +161,7 @@
       "metadata": {
         "description": "The location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "https://raw.githubusercontent.com/honcao/sample/master/sql"
+      "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/master/sql"
     },
 
     "location": {
@@ -214,7 +214,7 @@
     "virtualNetworkName": "WorkloadVNET",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "staticSubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('staticSubnetName'))]",
-    "adTemplateURL": "[concat(parameters('assetLocation'),'/ADVmTemplate.json')]",
+    "adTemplateURL": "[concat(parameters('assetLocation'),'/adVmTemplate.json')]",
 
 
     "adStorageName": "[concat(parameters('newStorageAccountNamePrefix'),'adsa')]",
@@ -229,7 +229,7 @@
     "sqlSubnetName": "sqlSubnet",
     "sqlSubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('sqlSubnetName'))]",
     "sqlStorageName": "[concat(parameters('newStorageAccountNamePrefix'),'sqlsa')]",
-    "sqlClusterTemplateURL": "[concat(parameters('assetLocation'),'/SqlClusterVmTemplate.json')]",
+    "sqlClusterTemplateURL": "[concat(parameters('assetLocation'),'/sqlVmTemplate.json')]",
     "deploySqlClusterVms": "deploySqlClusterVms",
     "deploySqlClusterVmsId": "[concat('Microsoft.Resources/deployments/', variables('deploySqlClusterVms'))]",
 

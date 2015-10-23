@@ -266,7 +266,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts',parameters('storageAccount'))]",
-        "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('adDNicName'), copyindex()))]",
+        "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('adDNicName'), '0'))]",
         "[resourceId('Microsoft.Network/loadBalancers',variables('publicLBName'))]"
       ],
       "properties": {
@@ -288,7 +288,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccount'),'.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), copyindex(),'-osdisk.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccount'),'.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -296,9 +296,9 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccount'),'.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), copyindex(),'data-1.vhd')]"
+                "uri": "[concat('http://',parameters('storageAccount'),'.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
               },
-              "name": "[concat(parameters('vmNamePrefix'), copyindex(),'-data-disk1')]",
+              "name": "[concat(parameters('vmNamePrefix'), '0','-data-disk1')]",
               "createOption": "empty",
               "caching": "None",
               "diskSizeGB": "[variables('windowsDiskSize')]",
