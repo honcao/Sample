@@ -170,10 +170,6 @@
 			"type": "Microsoft.Storage/storageAccounts",
 			"name": "[concat(parameters('storageAccount'), '0')]",
       "apiVersion": "2015-05-01-preview",
-      "copy": {
-				"name": "storageAccountLoop",
-				"count": 2
-			},
 			"location": "[parameters('location')]",
 			"properties": {
 			"accountType": "[parameters('storageAccountType')]"
