@@ -320,11 +320,6 @@
     "PrimaryAdVmName": {
       "value": "[reference(concat(parameters('vmNamePrefix'), '0'))]",
       "type": "string"
-    },
-    "SecondaryAdVmName": {
-        "value": "[reference(concat(parameters('vmNamePrefix'), '1'))]",
-        "type": "string"
-     }
-
+    }
   }
 }
