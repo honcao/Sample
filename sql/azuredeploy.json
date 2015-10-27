@@ -245,6 +245,7 @@
     "updateSQLCNic1": "updateSQLCNic1",
     "updateSQLCNic1Id": "[concat('Microsoft.Resources/deployments/', variables('updateSQLCNic1'))]",
     "sqlNicName1": "SqlMachine-Nic-0",
+    "nicTemplateURL": "[concat(parameters('assetLocation'),'/nic.json')]",
 
     "deploySqlStandalone": "deploySqlStandalone",
     "deploySqlStandaloneTemplateUrl" : "[concat(parameters('assetLocation'),'/deploySqlStandalone.json')]",

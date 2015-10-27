@@ -272,7 +272,7 @@
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('vmSize')]"
-        }
+        },
         "osProfile": {
           "computerName": "[concat(parameters('vmNamePrefix'), '0')]",
           "adminUsername": "[parameters('adminUsername')]",
