@@ -34,6 +34,7 @@
       "type": "string",
       "allowedValues": [
         "Standard_D1",
+        "Standard_A1",
         "Standard_DS1",
         "Standard_D2",
         "Standard_DS2",
@@ -53,17 +54,19 @@
       "metadata": {
         "description": "The size of the AD VMs Created"
       },
-      "defaultValue": "Standard_DS1"
+      "defaultValue": "Standard_A1"
     },
 
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
         "Standard_D1",
+        "Standard_A1",
         "Standard_DS1",
         "Standard_D2",
         "Standard_DS2",
         "Standard_D3",
+        "Standard_A3",
         "Standard_DS3",
         "Standard_D4",
         "Standard_DS4",
@@ -79,7 +82,7 @@
       "metadata": {
         "description": "The size of the AD VMs Created"
       },
-      "defaultValue": "Standard_DS3"
+      "defaultValue": "Standard_A3"
     },
 
     "dnsPrefix": {
@@ -179,7 +182,8 @@
         "Southeast Asia",
         "Japan East",
         "Japan West",
-        "Southeast Asia"
+        "Southeast Asia",
+        "local"
       ],
       "metadata": {
         "description": "The region to deploy the resources into"

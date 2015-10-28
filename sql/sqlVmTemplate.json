@@ -89,7 +89,8 @@
         "Southeast Asia",
         "Japan East",
         "Japan West",
-        "Southeast Asia"
+        "Southeast Asia",
+        "local"
       ],
       "metadata": {
         "description": "The region to deploy the resources into"
@@ -231,7 +232,7 @@
 			}
 		},
     {
-			"apiVersion": "2015-05-01-preview",
+			"apiVersion": "2015-06-15",
 			"type": "Microsoft.Compute/virtualMachines",
 			"name": "[concat(parameters('vmNamePrefix'), '0')]",
 			"location": "[parameters('location')]",
@@ -258,7 +259,7 @@
 					"osDisk": {
 						"name": "osdisk",
 						"vhd": {
-							"uri": "[concat('http://',parameters('storageAccount'),'0', '.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
+							"uri": "[concat('http://',parameters('storageAccount'),'0', '.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
 						},
 						"caching": "ReadWrite",
 						"createOption": "FromImage"
@@ -266,7 +267,7 @@
 					"dataDisks": [
 						{
 							"vhd": {
-								"uri":"[concat('http://',parameters('storageAccount'),'0', '.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
+								"uri":"[concat('http://',parameters('storageAccount'),'0', '.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
 							},
 							"name":"[concat(parameters('vmNamePrefix'), '0','data-1.vhd')]",
 							"caching" : "None",
@@ -276,7 +277,7 @@
 						},
 						{
 							"vhd": {
-								"uri":"[concat('http://',parameters('storageAccount'), '0', '.blob.core.windows.net/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','log-1.vhd')]"
+								"uri":"[concat('http://',parameters('storageAccount'), '0', '.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','log-1.vhd')]"
 							},
 							"name":"[concat(parameters('vmNamePrefix'), '0','log-1.vhd')]",
 							"caching" : "None",

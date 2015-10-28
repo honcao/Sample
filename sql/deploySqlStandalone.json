@@ -93,7 +93,7 @@
       "metadata": {
         "description": "The location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "http://honcaotemplate.blob.core.windows.net/templates"
+      "defaultValue": "http://honcaotemplate.blob.azurestack.local/templates"
     }
   },
   "variables": {
@@ -104,7 +104,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('sqlVMNamePrefix'),'0/sqlAOPrepare')]",
-      "apiVersion": "2015-05-01-preview",
+      "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
       ],
