@@ -424,7 +424,6 @@
         "parameters": {
           "sqlVMNamePrefix": { "value": "[variables('sqlClusterVmNamePrefix')]" },
           "domainName": { "value": "[parameters('domainName')]" },
-          "dnsPrefix": { "value": "[parameters('dnsPrefix')]" },
           "sqlLBName": { "value": "[variables('sqlLBName')]" },
           "sqlLBIPAddress": { "value": "[parameters('sqlLBIPAddress')]" },
           "dnsServerName": { "value": "[variables('adPDCVMName')]" },
