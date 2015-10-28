@@ -20,7 +20,7 @@
       "metadata": {
         "description": "The type of the Storage Account created"
       },
-      "defaultValue": "Premium_LRS"
+      "defaultValue": "Standard_LRS"
     },
 
     "vmNamePrefix": {
@@ -320,6 +320,7 @@
           "lbSubnetUri": { "value": "[variables('staticSubnetRef')]" },
           "vmNamePrefix": { "value": "[variables('sqlClusterVmNamePrefix')]" },
           "sqlLBIPAddress": { "value": "[parameters('sqlLBIPAddress')]" },
+          "storageAccountType": { "value": "[parameters('storageAccountType')]" },
           "vmSize": { "value": "[parameters('sqlVMSize')]" }
         }
       }
