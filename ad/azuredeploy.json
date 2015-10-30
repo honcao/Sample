@@ -65,13 +65,6 @@
       "defaultValue": "Standard_A1"
     },
 
-    "adImagePath": {
-      "type": "string",
-      "metadata": {
-        "description": "The ad Image Path"
-      }
-    },
-
     "dnsPrefix": {
       "type": "string",
       "metadata": {
@@ -256,7 +249,6 @@
           "primaryADName": { "value": "[variables('adPDCVMName')]" },
           "domainName": { "value": "[parameters('domainName')]" },
           "location": { "value": "[parameters('location')]" },
-          "adImagePath": { "value": "[parameters('adImagePath')]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
           "assetLocation": { "value": "[parameters('assetLocation')]" }
