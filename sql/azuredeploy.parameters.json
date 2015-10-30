@@ -25,6 +25,9 @@
     },
     "sqlServerServiceAccountPassword": {
       "value": "!!123abcA"
+    },
+    "storageDomain": {
+      "value": "core.windows.net"
     }
   }
 }
