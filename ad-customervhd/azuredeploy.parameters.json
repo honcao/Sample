@@ -22,9 +22,6 @@
     },
     "adminPassword": {
       "value": "!!123abcA"
-    },
-    "sqlServerServiceAccountPassword": {
-      "value": "!!123abcA"
     }
   }
 }

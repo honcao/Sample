@@ -25,7 +25,7 @@
       },
       "defaultValue": "MicrosoftWindowsServer"
     },
-    
+
     "adImagePath": {
       "type": "string",
       "metadata": {
@@ -132,6 +132,14 @@
 
     "primaryAdIpAddress": {
       "type": "string",
+      "metadata": {
+        "description": "The address of Primary AD"
+      }
+    },
+
+    "storageDomain": {
+      "type": "string",
+      "defaultValue": "azurestack.local",
       "metadata": {
         "description": "The address of Primary AD"
       }
@@ -273,7 +281,7 @@
               "uri": "[parameters('adImagePath')]"
             },
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccount'),'.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
+              "uri": "[concat('http://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,'/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -281,7 +289,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccount'),'.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
+                "uri": "[concat('http://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,'/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
               },
               "name": "[concat(parameters('vmNamePrefix'), '0','-data-disk1')]",
               "createOption": "empty",
