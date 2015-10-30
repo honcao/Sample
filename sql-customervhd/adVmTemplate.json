@@ -25,25 +25,11 @@
       },
       "defaultValue": "MicrosoftWindowsServer"
     },
-    "windowsImageOffer": {
+    
+    "adImagePath": {
       "type": "string",
       "metadata": {
-        "description": "The offer of Windows Image"
-      },
-      "defaultValue": "WindowsServer"
-    },
-    "windowsImageSKU": {
-      "type": "string",
-      "metadata": {
-        "description": "The SKU Name of Windows Image"
-      },
-      "defaultValue": "2012-R2-Datacenter"
-    },
-
-    "windowsImageVersion": {
-      "type": "string",
-      "metadata": {
-        "description": "The Version of Windows Image"
+        "description": "the OS imsage for Ad"
       },
       "defaultValue": "1.0.0"
     },
@@ -281,14 +267,11 @@
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
-          "imageReference": {
-            "publisher": "[parameters('windowsImagePublisher')]",
-            "offer": "[parameters('windowsImageOffer')]",
-            "sku": "[parameters('windowsImageSKU')]",
-            "version": "[parameters('windowsImageVersion')]"
-          },
           "osDisk": {
             "name": "osdisk",
+             "image": {
+              "uri": "[parameters('adImagePath')]"
+            },
             "vhd": {
               "uri": "[concat('http://',parameters('storageAccount'),'.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
             },

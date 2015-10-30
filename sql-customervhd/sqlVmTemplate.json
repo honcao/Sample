@@ -10,34 +10,11 @@
       "defaultValue": "SqlVM"
     },
 
-    "windowsImagePublisher": {
+    "sqlImagePath": {
       "type": "string",
       "metadata": {
-        "description": "The Publisher of Windows Image"
-      },
-      "defaultValue": "MicrosoftSQLServer"
-    },
-    "windowsImageOffer": {
-      "type": "string",
-      "metadata": {
-        "description": "The offer of Windows Image"
-      },
-      "defaultValue": "SQL2014-WS2012R2"
-    },
-    "windowsImageSKU": {
-      "type": "string",
-      "metadata": {
-        "description": "The SKU Name of Windows Image"
-      },
-      "defaultValue": "Enterprise"
-    },
-
-    "windowsImageVersion": {
-      "type": "string",
-      "metadata": {
-        "description": "The Version of Windows Image"
-      },
-      "defaultValue": "1.0.0"
+        "description": "The SQL OS Image path"
+      }
     },
 
     "storageAccount": {
@@ -251,14 +228,11 @@
 					"adminPassword": "[parameters('adminPassword')]"
 				},
 				"storageProfile": {
-					"imageReference": {
-						"publisher": "[parameters('windowsImagePublisher')]",
-						"offer": "[parameters('windowsImageOffer')]",
-						"sku": "[parameters('windowsImageSKU')]",
-						"version": "[parameters('windowsImageVersion')]"
-					},
 					"osDisk": {
-						"name": "osdisk",
+            "name": "osdisk",
+            "image": {
+              "uri": "[parameters('sqlImagePath')]"
+            },
 						"vhd": {
 							"uri": "[concat('http://',parameters('storageAccount'),'0', '.blob.azurestack.local/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
 						},

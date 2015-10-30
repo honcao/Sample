@@ -57,6 +57,13 @@
       "defaultValue": "Standard_A1"
     },
 
+    "adImagePath": {
+      "type": "string",
+      "metadata": {
+        "description": "The ad Image Path"
+      }
+    },
+
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
@@ -83,6 +90,13 @@
         "description": "The size of the AD VMs Created"
       },
       "defaultValue": "Standard_A3"
+    },
+
+    "sqlImagePath": {
+      "type": "string",
+      "metadata": {
+        "description": "The Sql Image Path"
+      }
     },
 
     "dnsPrefix": {
@@ -321,6 +335,7 @@
           "vmNamePrefix": { "value": "[variables('sqlClusterVmNamePrefix')]" },
           "sqlLBIPAddress": { "value": "[parameters('sqlLBIPAddress')]" },
           "storageAccountType": { "value": "[parameters('storageAccountType')]" },
+          "sqlImagePath": { "value": "[parameters('sqlImagePath')]" },
           "vmSize": { "value": "[parameters('sqlVMSize')]" }
         }
       }
@@ -342,6 +357,7 @@
           "primaryADName": { "value": "[variables('adPDCVMName')]" },
           "domainName": { "value": "[parameters('domainName')]" },
           "location": { "value": "[parameters('location')]" },
+          "adImagePath": { "value": "[parameters('adImagePath')]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
           "assetLocation": { "value": "[parameters('assetLocation')]" }
