@@ -10,14 +10,6 @@
       },
       "defaultValue": "ADVM"
     },
-    "availabilitySetName": {
-      "type": "string",
-      "metadata": {
-        "description": "The Available Set Name"
-      },
-      "defaultValue": "ADAvailableSet"
-    },
-
     "windowsImagePublisher": {
       "type": "string",
       "metadata": {
@@ -59,7 +51,7 @@
       "metadata": {
         "description": "The name of the Administrator of the new VMs and Domain"
       },
-      "defaultValue": "sqlAdministrator"
+      "defaultValue": "adAdministrator"
     },
     "adminPassword": {
       "type": "securestring",
@@ -148,7 +140,7 @@
   "variables": {
     "windowsDiskSize": 128,
     "publicLBName": "ADPublicLoadBalancer",
-    "publicIPAddressName": "[concat(parameters('availabilitySetName'), 'PublicIp')]",
+    "publicIPAddressName": "PublicIp",
     "lbFE": "ADLBFE",
     "lbBE": "ADLBBE",
     "rpdNAT": "ADRDPNAT",
