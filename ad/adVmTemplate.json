@@ -61,6 +61,15 @@
       },
       "defaultValue": "Standard_LRS"
     },
+
+    "storageDomain": {
+      "type": "string",
+      "defaultValue": "azurestack.local",
+      "metadata": {
+        "description": "The storage domain"
+      }
+    },
+
     "adminUsername": {
       "type": "string",
       "metadata": {
@@ -139,14 +148,6 @@
 
     "primaryAdIpAddress": {
       "type": "string",
-      "metadata": {
-        "description": "The address of Primary AD"
-      }
-    },
-
-    "storageDomain": {
-      "type": "string",
-      "defaultValue": "azurestack.local",
       "metadata": {
         "description": "The address of Primary AD"
       }

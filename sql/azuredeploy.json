@@ -23,6 +23,14 @@
       "defaultValue": "Standard_LRS"
     },
 
+    "storageDomain": {
+      "type": "string",
+      "defaultValue": "azurestack.local",
+      "metadata": {
+        "description": "The address of Primary AD"
+      }
+    },
+
     "vmNamePrefix": {
       "type": "string",
       "metadata": {
@@ -300,6 +308,7 @@
           "primaryAdIpAddress": { "value": "[parameters('primaryAdIpAddress')]" },
           "storageAccountType": { "value": "[parameters('storageAccountType')]" },
           "vmNamePrefix": { "value": "[variables('adVmNamePrefix')]" },
+          "storageDomain": { "value": "[parameters('storageDomain')]" },
           "vmSize": { "value": "[parameters('adVMSize')]" }
         }
       }
@@ -327,6 +336,7 @@
           "vmNamePrefix": { "value": "[variables('sqlClusterVmNamePrefix')]" },
           "sqlLBIPAddress": { "value": "[parameters('sqlLBIPAddress')]" },
           "storageAccountType": { "value": "[parameters('storageAccountType')]" },
+          "storageDomain": { "value": "[parameters('storageDomain')]" },
           "vmSize": { "value": "[parameters('sqlVMSize')]" }
         }
       }
