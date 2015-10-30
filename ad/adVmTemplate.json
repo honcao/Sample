@@ -155,7 +155,7 @@
   "variables": {
     "windowsDiskSize": 128,
     "publicLBName": "ADPublicLoadBalancer",
-    "publicIPAddressName": "[concat(parameters('availabilitySetName'), 'PublicIp')]",
+    "publicIPAddressName": "lbPublikIP",
     "lbFE": "ADLBFE",
     "lbBE": "ADLBBE",
     "rpdNAT": "ADRDPNAT",

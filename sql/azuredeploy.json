@@ -167,6 +167,14 @@
       "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/master/sql"
     },
 
+    "adAssetLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "The location of resources that the script is dependent on such as linked templates and DSC modules"
+      },
+      "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/master/ad"
+    },
+
     "location": {
       "type": "string",
       "allowedValues": [
@@ -218,17 +226,15 @@
     "virtualNetworkName": "WorkloadVNET",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "staticSubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('staticSubnetName'))]",
-    "adTemplateURL": "[concat(parameters('assetLocation'),'/adVmTemplate.json')]",
+    "adTemplateURL": "[concat(parameters('adAssetLocation'),'/adVmTemplate.json')]",
 
 
     "adStorageName": "[concat(parameters('newStorageAccountNamePrefix'),'adsa')]",
     "adVmDepoyment": "DeployAdVms",
     "adVmDepoymentId": "[concat('Microsoft.Resources/deployments/', variables('adVmDepoyment'))]",
-    "deployPrimaryAdTemplateURL": "[concat(parameters('assetLocation'),'/deployPrimaryAD.json')]",
+    "deployPrimaryAdTemplateURL": "[concat(parameters('adAssetLocation'),'/deployPrimaryAD.json')]",
     "deployPrimaryAd": "deployPrimaryAd",
     "deployPrimaryAdId": "[concat('Microsoft.Resources/deployments/', variables('deployPrimaryAd'))]",
-    "deploySecondaryAdName": "deploySecondaryAdName",
-    "deploySecondaryAdNameId": "[concat('Microsoft.Resources/deployments/', variables('deploySecondaryAdName'))]",
 
     "sqlSubnetName": "sqlSubnet",
     "sqlSubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('sqlSubnetName'))]",
