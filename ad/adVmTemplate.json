@@ -292,7 +292,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,'/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
+              "uri": "[concat('https://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,':443/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -300,7 +300,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,'/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
+                "uri": "[concat('https://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,':443/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
               },
               "name": "[concat(parameters('vmNamePrefix'), '0','-data-disk1')]",
               "createOption": "empty",
