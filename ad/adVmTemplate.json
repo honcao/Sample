@@ -283,7 +283,7 @@
           "adminPassword": "[parameters('adminPassword')]"
         },
         "storageProfile": {
-           "imageReference": {
+          "imageReference": {
             "publisher": "[parameters('windowsImagePublisher')]",
             "offer": "[parameters('windowsImageOffer')]",
             "sku": "[parameters('windowsImageSKU')]",
@@ -298,16 +298,6 @@
             "createOption": "FromImage"
           },
           "dataDisks": [
-            {
-              "vhd": {
-                "uri": "[concat('https://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,':443/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
-              },
-              "name": "[concat(parameters('vmNamePrefix'), '0','-data-disk1')]",
-              "createOption": "empty",
-              "caching": "None",
-              "diskSizeGB": "[variables('windowsDiskSize')]",
-              "lun": 0
-            }
           ]
         },
         "networkProfile": {
@@ -316,7 +306,13 @@
               "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('adDNicName'), '0'))]"
             }
           ]
-        }
+        },
+        "diagnosticsProfile": {
+            "bootDiagnostics": {
+                "enabled": true,
+                "storageUri": "[concat( 'https://',  parameters('storageAccount'), '.blob.',parameters('storageDomain'), ':443/'"
+            }
+        },
       }
     }
   ],
