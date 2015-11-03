@@ -298,6 +298,16 @@
             "createOption": "FromImage"
           },
           "dataDisks": [
+            {
+              "vhd": {
+                "uri": "[concat('https://', parameters('storageAccount'),'.blob.', parameters('storageDomain') ,':443/',variables('vmContainerName'),'/', parameters('vmNamePrefix'), '0','data-1.vhd')]"
+              },
+              "name": "[concat(parameters('vmNamePrefix'), '0','-data-disk1')]",
+              "createOption": "empty",
+              "caching": "None",
+              "diskSizeGB": "[variables('windowsDiskSize')]",
+              "lun": 0
+            }
           ]
         },
         "networkProfile": {
@@ -308,10 +318,10 @@
           ]
         },
         "diagnosticsProfile": {
-            "bootDiagnostics": {
-                "enabled": true,
-                "storageUri": "[concat( 'https://',  parameters('storageAccount'), '.blob.',parameters('storageDomain'), ':443/'"
-            }
+          "bootDiagnostics": {
+            "enabled": true,
+            "storageUri": "[concat( 'https://',  parameters('storageAccount'), '.blob.',parameters('storageDomain'), ':443/'"
+          }
         },
       }
     }
