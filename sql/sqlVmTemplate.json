@@ -37,7 +37,7 @@
       "metadata": {
         "description": "The Version of Windows Image"
       },
-      "defaultValue": "1.0.0"
+      "defaultValue": "latest"
     },
 
     "storageAccount": {

@@ -92,8 +92,7 @@
       "type": "string",
       "metadata": {
         "description": "The location of resources that the script is dependent on such as linked templates and DSC modules"
-      },
-      "defaultValue": "http://honcaotemplate.blob.azurestack.local/templates"
+      }
     }
   },
   "variables": {
@@ -111,7 +110,7 @@
       "properties": {
         "publisher": "Microsoft.Powershell",
         "type": "DSC",
-        "typeHandlerVersion": "2.6",
+        "typeHandlerVersion": "2.8",
         "settings": {
           "modulesUrl": "[variables('deploySqlStandaloneModulesURL')]",
           "configurationFunction": "[variables('deploySqlStandaloneConfigurationFunction')]",

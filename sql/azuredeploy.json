@@ -359,7 +359,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-         "[variables('publiclbName')]"
+        "[variables('publiclbName')]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -374,7 +374,7 @@
           "publicBEAddressPoolID": { "value": "[variables('publicBEAddressPoolID')]" },
           "adRDPNATRuleID": { "value": "[variables('adRDPNATRuleID')]" },
           "storageAccount": { "value": "[variables('adStorageName')]" },
-          "subnetUri": { "value": "[variables('staticSubnetRef')]" },
+          "subnetResourceId": { "value": "[variables('staticSubnetRef')]" },
           "primaryAdIpAddress": { "value": "[parameters('primaryAdIpAddress')]" },
           "storageAccountType": { "value": "[parameters('storageAccountType')]" },
           "vmNamePrefix": { "value": "[variables('adVmNamePrefix')]" },
