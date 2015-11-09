@@ -86,6 +86,7 @@
       },
       "defaultValue": "10.0.0.0/24"
     },
+
     "virtualNetworkAddressRange": {
       "type": "string",
       "metadata": {
@@ -159,6 +160,7 @@
         }
       }
     ],
+
     "virtualNetworkName": "WorkloadVNET",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "staticSubnetRef": "[concat(variables('vnetID'),'/subnets/',variables('staticSubnetName'))]",
@@ -184,9 +186,18 @@
 
     "updateSQLCNic1": "updateSQLCNic1",
     "updateSQLCNic1Id": "[concat('Microsoft.Resources/deployments/', variables('updateSQLCNic1'))]",
-    "sqlNicName1": "SqlMachine-Nic-0",
-    "nicTemplateURL": "[concat(parameters('assetLocation'),'/nic.json')]"
     
+
+    "publicLBName": "ADPublicLoadBalancer",
+    "publicIPAddressName": "lbPublikIP",
+    "lbFE": "ADLBFE",
+    "lbBE": "ADLBBE",
+    "rpdNAT": "ADRDPNAT",
+    "publiclbID": "[resourceId('Microsoft.Network/loadBalancers',variables('publicLBName'))]",
+    "publiclbFEConfigID": "[concat(variables('publiclbID'),'/frontendIPConfigurations/',variables('lbFE'))]",
+    "rdpPort": 3389,
+    "publicBEAddressPoolID": "[concat(variables('publiclbID'),'/backendAddressPools/',variables('lbBE'))]",
+    "adRDPNATRuleID": "[concat(variables('publiclbID'),'/inboundNatRules/',variables('rpdNAT'))]"
   },
 
   "resources": [
@@ -204,6 +215,64 @@
         "subnets": "[variables('subnets')]"
       }
     },
+
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+      ],
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('dnsPrefix')]"
+        }
+      }
+    },
+
+    {
+      "apiVersion": "2015-05-01-preview",
+      "name": "[variables('publiclbName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[variables('virtualNetworkName')]"
+      ],
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "[variables('lbFE')]",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+              }
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "[variables('lbBE')]"
+          }
+        ],
+        "inboundNatRules": [
+          {
+            "name": "[variables('rpdNAT')]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('publiclbFEConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPort": "[variables('rdpPort')]",
+              "backendPort": 3389,
+              "enableFloatingIP": false
+            }
+          }
+        ]
+      }
+    },
+
     {
       "name": "[variables('adVmDepoyment')]",
       "type": "Microsoft.Resources/deployments",
@@ -221,9 +290,10 @@
           "location": { "value": "[parameters('location')]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
-          "dnsPrefix": { "value": "[parameters('dnsPrefix')]" },
+          "publicBEAddressPoolID": { "value": "[variables('publicBEAddressPoolID')]" },
+          "adRDPNATRuleID": { "value": "[variables('adRDPNATRuleID')]" },
           "storageAccount": { "value": "[variables('adStorageName')]" },
-          "subnetUri": { "value": "[variables('staticSubnetRef')]" },
+          "subnetResourceId": { "value": "[variables('staticSubnetRef')]" },
           "primaryAdIpAddress": { "value": "[parameters('primaryAdIpAddress')]" },
           "storageAccountType": { "value": "[parameters('storageAccountType')]" },
           "vmNamePrefix": { "value": "[variables('adVmNamePrefix')]" },

@@ -58,8 +58,7 @@
       ],
       "metadata": {
         "description": "The type of the Storage Account created"
-      },
-      "defaultValue": "Standard_LRS"
+      }
     },
 
     "storageDomain": {
@@ -74,8 +73,7 @@
       "type": "string",
       "metadata": {
         "description": "The name of the Administrator of the new VMs and Domain"
-      },
-      "defaultValue": "sqlAdministrator"
+      }
     },
     "adminPassword": {
       "type": "securestring",
@@ -133,19 +131,28 @@
       },
       "defaultValue": "Standard_D1"
     },
-    "dnsPrefix": {
+
+    "publicBEAddressPoolID": {
       "type": "string",
       "metadata": {
-        "description": "The DNS Prefix for the Public IP Address"
-      }
-    },
-    "subnetUri": {
-      "type": "string",
-      "metadata": {
-        "description": "the reference to the subnet"
+        "description": "The public backend address pool resource id"
       }
     },
 
+    "subnetResourceId": {
+      "type": "string",
+      "metadata": {
+        "description": "the resource id of the subnet"
+      }
+    },
+
+    "adRDPNATRuleID": {
+      "type": "string",
+      "metadata": {
+        "description": "the resource id of the RDP NAT rule"
+      }
+    },
+    
     "primaryAdIpAddress": {
       "type": "string",
       "metadata": {
@@ -155,16 +162,7 @@
   },
   "variables": {
     "windowsDiskSize": 128,
-    "publicLBName": "ADPublicLoadBalancer",
-    "publicIPAddressName": "lbPublikIP",
-    "lbFE": "ADLBFE",
-    "lbBE": "ADLBBE",
-    "rpdNAT": "ADRDPNAT",
-    "publiclbID": "[resourceId('Microsoft.Network/loadBalancers',variables('publicLBName'))]",
-    "publiclbFEConfigID": "[concat(variables('publiclbID'),'/frontendIPConfigurations/',variables('lbFE'))]",
-    "rdpPort": 3389,
-    "publicBEAddressPoolID": "[concat(variables('publiclbID'),'/backendAddressPools/',variables('lbBE'))]",
-    "adRDPNATRuleID": "[concat(variables('publiclbID'),'/inboundNatRules/',variables('rpdNAT'))]",
+
     "adDNicName": "ADMachine-Nic-",
     "vmContainerName": "vhds"
   },
@@ -178,64 +176,12 @@
         "accountType": "[parameters('storageAccountType')]"
       }
     },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[variables('publicIPAddressName')]",
-      "location": "[parameters('location')]",
-      "properties": {
-        "publicIPAllocationMethod": "Dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[parameters('dnsPrefix')]"
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "name": "[variables('publiclbName')]",
-      "type": "Microsoft.Network/loadBalancers",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-      ],
-      "properties": {
-        "frontendIPConfigurations": [
-          {
-            "name": "[variables('lbFE')]",
-            "properties": {
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-              }
-            }
-          }
-        ],
-        "backendAddressPools": [
-          {
-            "name": "[variables('lbBE')]"
-          }
-        ],
-        "inboundNatRules": [
-          {
-            "name": "[variables('rpdNAT')]",
-            "properties": {
-              "frontendIPConfiguration": {
-                "id": "[variables('publiclbFEConfigID')]"
-              },
-              "protocol": "tcp",
-              "frontendPort": "[variables('rdpPort')]",
-              "backendPort": 3389,
-              "enableFloatingIP": false
-            }
-          }
-        ]
-      }
-    },
+    
     {
       "name": "[concat(variables('adDNicName'), '0')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/loadBalancers/',variables('publicLBName'))]"
       ],
       "apiVersion": "2015-05-01-preview",
       "properties": {
@@ -246,16 +192,16 @@
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[parameters('primaryAdIpAddress')]",
               "subnet": {
-                "id": "[parameters('subnetUri')]"
+                "id": "[parameters('subnetResourceId')]"
               },
               "loadBalancerBackendAddressPools": [
                 {
-                  "id": "[variables('publicBEAddressPoolID')]"
+                  "id": "[parameters('publicBEAddressPoolID')]"
                 }
               ],
               "loadBalancerInboundNatRules": [
                 {
-                  "id": "[variables('adRDPNATRuleID')]"
+                  "id": "[parameters('adRDPNATRuleID')]"
                 }
               ]
             }
@@ -270,8 +216,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts',parameters('storageAccount'))]",
-        "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('adDNicName'), '0'))]",
-        "[resourceId('Microsoft.Network/loadBalancers',variables('publicLBName'))]"
+        "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('adDNicName'), '0'))]"
       ],
       "properties": {
         "hardwareProfile": {
@@ -327,9 +272,5 @@
     }
   ],
   "outputs": {
-    "PrimaryAdVmName": {
-      "value": "[reference(concat(parameters('vmNamePrefix'), '0'))]",
-      "type": "string"
-    }
   }
 }
