@@ -266,7 +266,18 @@
 
     "deploySqlStandalone": "deploySqlStandalone",
     "deploySqlStandaloneTemplateUrl" : "[concat(parameters('assetLocation'),'/deploySqlStandalone.json')]",
-    "sqlLBName": "sqlLoadBalancer"
+    "sqlLBName": "sqlLoadBalancer",
+
+    "publicLBName": "ADPublicLoadBalancer",
+    "publicIPAddressName": "lbPublikIP",
+    "lbFE": "ADLBFE",
+    "lbBE": "ADLBBE",
+    "rpdNAT": "ADRDPNAT",
+    "publiclbID": "[resourceId('Microsoft.Network/loadBalancers',variables('publicLBName'))]",
+    "publiclbFEConfigID": "[concat(variables('publiclbID'),'/frontendIPConfigurations/',variables('lbFE'))]",
+    "rdpPort": 3389,
+    "publicBEAddressPoolID": "[concat(variables('publiclbID'),'/backendAddressPools/',variables('lbBE'))]",
+    "adRDPNATRuleID": "[concat(variables('publiclbID'),'/inboundNatRules/',variables('rpdNAT'))]"
     
   },
 
@@ -285,12 +296,70 @@
         "subnets": "[variables('subnets')]"
       }
     },
+
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[variables('virtualNetworkName')]"
+      ],
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('dnsPrefix')]"
+        }
+      }
+    },
+
+    {
+      "apiVersion": "2015-05-01-preview",
+      "name": "[variables('publiclbName')]",
+      "type": "Microsoft.Network/loadBalancers",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[variables('virtualNetworkName')]"
+      ],
+      "properties": {
+        "frontendIPConfigurations": [
+          {
+            "name": "[variables('lbFE')]",
+            "properties": {
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+              }
+            }
+          }
+        ],
+        "backendAddressPools": [
+          {
+            "name": "[variables('lbBE')]"
+          }
+        ],
+        "inboundNatRules": [
+          {
+            "name": "[variables('rpdNAT')]",
+            "properties": {
+              "frontendIPConfiguration": {
+                "id": "[variables('publiclbFEConfigID')]"
+              },
+              "protocol": "tcp",
+              "frontendPort": "[variables('rdpPort')]",
+              "backendPort": 3389,
+              "enableFloatingIP": false
+            }
+          }
+        ]
+      }
+    },
+
     {
       "name": "[variables('adVmDepoyment')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[variables('virtualNetworkName')]"
+         "[variables('publiclbName')]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -302,7 +371,8 @@
           "location": { "value": "[parameters('location')]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
-          "dnsPrefix": { "value": "[parameters('dnsPrefix')]" },
+          "publicBEAddressPoolID": { "value": "[variables('publicBEAddressPoolID')]" },
+          "adRDPNATRuleID": { "value": "[variables('adRDPNATRuleID')]" },
           "storageAccount": { "value": "[variables('adStorageName')]" },
           "subnetUri": { "value": "[variables('staticSubnetRef')]" },
           "primaryAdIpAddress": { "value": "[parameters('primaryAdIpAddress')]" },
