@@ -430,7 +430,7 @@
           "location": { "value": "[parameters('location')]" },
           "adminUsername": { "value": "[parameters('adminUsername')]" },
           "adminPassword": { "value": "[parameters('adminPassword')]" },
-          "assetLocation": { "value": "[parameters('assetLocation')]" }
+          "assetLocation": { "value": "[parameters('adAssetLocation')]" }
         }
       }
     },
