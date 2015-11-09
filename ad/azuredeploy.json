@@ -222,7 +222,7 @@
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+        "[variables('virtualNetworkName')]"
       ],
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
