@@ -253,7 +253,7 @@
 
     "adVmNamePrefix": "[concat(parameters('vmNamePrefix'),'-AD-')]",
     "adPDCVMName": "[concat(variables('adVmNamePrefix'),'0')]",
-    "vnetwithDNSTemplateUri": "[concat(parameters('assetLocation'),'/vnet-with-dns-server.json')]",
+    "vnetwithDNSTemplateUri": "[concat(parameters('adAssetLocation'),'/vnet-with-dns-server.json')]",
     "updateVNetDNS1": "updateVNetDNS1",
     "updateVNetDNS1Id": "[concat('Microsoft.Resources/deployments/', variables('updateVNetDNS1'))]",
 
@@ -262,7 +262,7 @@
     "updateSQLCNic1": "updateSQLCNic1",
     "updateSQLCNic1Id": "[concat('Microsoft.Resources/deployments/', variables('updateSQLCNic1'))]",
     "sqlNicName1": "SqlMachine-Nic-0",
-    "nicTemplateURL": "[concat(parameters('assetLocation'),'/nic.json')]",
+    "nicTemplateURL": "[concat(parameters('adAssetLocation'),'/nic.json')]",
 
     "deploySqlStandalone": "deploySqlStandalone",
     "deploySqlStandaloneTemplateUrl" : "[concat(parameters('assetLocation'),'/deploySqlStandalone.json')]",
