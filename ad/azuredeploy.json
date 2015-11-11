@@ -238,7 +238,8 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[parameters('virtualNetworkAddressRange')]"
+            "[parameters('virtualNetworkAddressRange')]",
+            "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]"
           ]
         },
         "subnets": "[variables('subnets')]"
@@ -251,8 +252,7 @@
       "name": "[variables('publicIPAddressName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[variables('virtualNetworkName')]",
-        "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]"
+        "[variables('virtualNetworkName')]"
       ],
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
