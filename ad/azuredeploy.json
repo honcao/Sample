@@ -156,7 +156,10 @@
       {
         "name": "[variables('staticSubnetName')]",
         "properties": {
-          "addressPrefix": "[parameters('vmNetworkSubnet')]"
+          "addressPrefix": "[parameters('vmNetworkSubnet')]",
+           "networkSecurityGroup": {
+                                "id": "[variables('nsgID')]"
+                            }
         }
       }
     ],
@@ -254,10 +257,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[parameters('dnsPrefix')]",
-          "networkSecurityGroup": {
-            "id": "[variables('nsgID')]"
-          }
+          "domainNameLabel": "[parameters('dnsPrefix')]"
         }
       }
     },
