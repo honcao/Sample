@@ -157,9 +157,9 @@
         "name": "[variables('staticSubnetName')]",
         "properties": {
           "addressPrefix": "[parameters('vmNetworkSubnet')]",
-           "networkSecurityGroup": {
-                                "id": "[variables('nsgID')]"
-                            }
+          "networkSecurityGroup": {
+            "id": "[variables('nsgID')]"
+          }
         }
       }
     ],
@@ -235,14 +235,24 @@
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[parameters('location')]",
       "apiVersion": "2015-05-01-preview",
+      "dependsOn": [ "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]" ],
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[parameters('virtualNetworkAddressRange')]",
-            "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]"
+            "[parameters('virtualNetworkAddressRange')]"
           ]
         },
-        "subnets": "[variables('subnets')]"
+        "subnets": [
+          {
+            "name": "[variables('staticSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('vmNetworkSubnet')]",
+              "networkSecurityGroup": {
+                "id": "[variables('nsgID')]"
+              }
+            }
+          }
+        ]
       }
     },
 
