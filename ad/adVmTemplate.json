@@ -161,7 +161,7 @@
     }
   },
   "variables": {
-    "windowsDiskSize": 128,
+    "windowsDiskSize": 2,
 
     "adDNicName": "ADMachine-Nic-",
     "vmContainerName": "vhds"
@@ -205,10 +205,7 @@
               ]
             }
           }
-        ],
-        "dnsSettings": {
-                "dnsServers": [ "192.168.100.2" ]
-            }
+        ]
       }
     },
     {
