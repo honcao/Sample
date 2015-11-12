@@ -294,11 +294,7 @@
             }
           }
         ],
-        "backendAddressPools": [
-          {
-            "name": "[variables('lbBE')]"
-          }
-        ],
+
         "inboundNatRules": [
           {
             "name": "[variables('rpdNAT')]",

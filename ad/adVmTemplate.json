@@ -193,11 +193,6 @@
               "subnet": {
                 "id": "[parameters('subnetResourceId')]"
               },
-              "loadBalancerBackendAddressPools": [
-                {
-                  "id": "[parameters('publicBEAddressPoolID')]"
-                }
-              ],
               "loadBalancerInboundNatRules": [
                 {
                   "id": "[parameters('adRDPNATRuleID')]"

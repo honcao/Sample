@@ -221,13 +221,19 @@
       {
         "name": "[variables('staticSubnetName')]",
         "properties": {
-          "addressPrefix": "[parameters('vmNetworkSubnet')]"
+          "addressPrefix": "[parameters('vmNetworkSubnet')]",
+          "networkSecurityGroup": {
+                "id": "[variables('nsgID')]"
+              }
         }
       },
       {
         "name": "[variables('sqlSubnetName')]",
         "properties": {
-          "addressPrefix": "[parameters('sqlSubnet')]"
+          "addressPrefix": "[parameters('sqlSubnet')]",
+          "networkSecurityGroup": {
+                "id": "[variables('nsgID')]"
+              }
         }
       }
     ],
@@ -257,7 +263,7 @@
     "updateVNetDNS1": "updateVNetDNS1",
     "updateVNetDNS1Id": "[concat('Microsoft.Resources/deployments/', variables('updateVNetDNS1'))]",
 
-    "sqlClusterVmNamePrefix":  "[concat(parameters('vmNamePrefix'),'-sql-')]",
+    "sqlClusterVmNamePrefix": "[concat(parameters('vmNamePrefix'),'-sql-')]",
 
     "updateSQLCNic1": "updateSQLCNic1",
     "updateSQLCNic1Id": "[concat('Microsoft.Resources/deployments/', variables('updateSQLCNic1'))]",
@@ -265,7 +271,7 @@
     "nicTemplateURL": "[concat(parameters('adAssetLocation'),'/nic.json')]",
 
     "deploySqlStandalone": "deploySqlStandalone",
-    "deploySqlStandaloneTemplateUrl" : "[concat(parameters('assetLocation'),'/deploySqlStandalone.json')]",
+    "deploySqlStandaloneTemplateUrl": "[concat(parameters('assetLocation'),'/deploySqlStandalone.json')]",
     "sqlLBName": "sqlLoadBalancer",
 
     "publicLBName": "ADPublicLoadBalancer",
@@ -277,23 +283,54 @@
     "publiclbFEConfigID": "[concat(variables('publiclbID'),'/frontendIPConfigurations/',variables('lbFE'))]",
     "rdpPort": 3389,
     "publicBEAddressPoolID": "[concat(variables('publiclbID'),'/backendAddressPools/',variables('lbBE'))]",
-    "adRDPNATRuleID": "[concat(variables('publiclbID'),'/inboundNatRules/',variables('rpdNAT'))]"
-    
+    "adRDPNATRuleID": "[concat(variables('publiclbID'),'/inboundNatRules/',variables('rpdNAT'))]",
+
+    "nsgName": "sqlNsg",
+    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('nsgName'))]"
   },
 
   "resources": [
+
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[variables('nsgName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "rule1",
+            "properties": {
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 101,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      }
+    },
+
     {
       "name": "[variables('virtualNetworkName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[parameters('location')]",
       "apiVersion": "2015-05-01-preview",
+      "dependsOn": [ "[concat('Microsoft.Network/networkSecurityGroups/', variables('nsgName'))]" ],
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
             "[parameters('virtualNetworkAddressRange')]"
           ]
         },
-        "subnets": "[variables('subnets')]"
+        "subnets": "[variables('subnets')]",
+        "dhcpOptions": {
+          "dnsServers": [ "192.168.100.2" ]
+        }
       }
     },
 
@@ -330,11 +367,6 @@
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
               }
             }
-          }
-        ],
-        "backendAddressPools": [
-          {
-            "name": "[variables('lbBE')]"
           }
         ],
         "inboundNatRules": [
@@ -497,8 +529,8 @@
         }
       }
     },
-    
-    
+
+
     {
       "name": "[variables('deploySqlStandalone')]",
       "type": "Microsoft.Resources/deployments",

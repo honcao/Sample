@@ -150,15 +150,14 @@
       "metadata": {
         "description": "The address of Primary AD"
       },
-      "defaultValue": 1000
+      "defaultValue": 10
     },
 
     "sqlLBIPAddress": {
       "type": "string",
       "metadata": {
         "description": "The address of secondary AD"
-      },
-      "defaultValue" : "10.0.0.200"
+      }      
     }
   },
   "variables": {
