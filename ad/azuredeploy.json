@@ -123,7 +123,7 @@
       "metadata": {
         "description": "The location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/develop/ad"
+      "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/master/ad"
     },
 
     "location": {
