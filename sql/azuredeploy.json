@@ -137,13 +137,6 @@
       "defaultValue": "10.0.0.0/16"
     },
 
-    "sqlSubnet": {
-      "type": "string",
-      "metadata": {
-        "description": "The address range of the SQL subnet created in the new VNET"
-      },
-      "defaultValue": "10.0.1.0/24"
-    },
     "primaryAdIpAddress": {
       "type": "string",
       "metadata": {
@@ -204,14 +197,6 @@
       "metadata": {
         "description": "The region to deploy the resources into"
       }
-    },
-
-    "sqlLBIPAddress": {
-      "type": "string",
-      "metadata": {
-        "description": "The address of secondary AD"
-      },
-      "defaultValue": "10.0.0.6"
     }
   },
 
