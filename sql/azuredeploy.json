@@ -172,7 +172,7 @@
       "metadata": {
         "description": "The location of resources that the script is dependent on such as linked templates and DSC modules"
       },
-      "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/develope/sql"
+      "defaultValue": "https://raw.githubusercontent.com/honcao/Sample/develop/sql"
     },
 
     "adAssetLocation": {
