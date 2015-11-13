@@ -51,7 +51,7 @@
       "type": "string",
       "defaultValue": "azurestack.local",
       "metadata": {
-        "description": "The address of Primary AD"
+        "description": "the storage domain"
       }
     },
 

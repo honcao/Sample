@@ -23,13 +23,6 @@
       }
     },
 
-    "sqlLBIPAddress": {
-      "type": "string",
-      "metadata": {
-        "description": "The VM name of Sql Witness server"
-      }
-    },
-
     "dnsServerName": {
       "type": "string",
       "metadata": {

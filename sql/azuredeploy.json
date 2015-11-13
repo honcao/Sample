@@ -527,7 +527,6 @@
           "sqlVMNamePrefix": { "value": "[variables('sqlClusterVmNamePrefix')]" },
           "domainName": { "value": "[parameters('domainName')]" },
           "sqlLBName": { "value": "[variables('sqlLBName')]" },
-          "sqlLBIPAddress": { "value": "[parameters('sqlLBIPAddress')]" },
           "dnsServerName": { "value": "[variables('adPDCVMName')]" },
           "location": { "value": "[parameters('location')]" },
           "sqlServerServiceAccountUserName": { "value": "[parameters('sqlServerServiceAccountUserName')]" },
