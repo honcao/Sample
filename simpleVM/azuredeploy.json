@@ -171,7 +171,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat( [reference('StorageAccountInfoDeployment').outputs.storageAccountInfo.value.primaryEndpoints.blob], variables('vmStorageAccountContainerName'),'/',variables('OSDiskName'),'.vhd')]"
+              "uri": "[concat( reference('StorageAccountInfoDeployment').outputs.storageAccountInfo.value.primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/',variables('OSDiskName'),'.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"

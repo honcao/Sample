@@ -153,11 +153,16 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/honcao/Sample/master/simpleVM/storageAccount.json",
+          "uri": "https://raw.githubusercontent.com/honcao/Sample/master/simpleVM/createVM.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "storageAccountName": { "value": "[parameters('newStorageAccountName')]" }
+          "newStorageAccountName": { "value": "[parameters('newStorageAccountName')]" },
+          "adminUsername": { "value": "[parameters('adminUsername')]" },
+          "adminPassword": { "value": "[parameters('adminPassword')]" },
+          "dnsNameForPublicIP": { "value": "[parameters('dnsNameForPublicIP')]" },
+          "windowsOSVersion": { "value": "[parameters('windowsOSVersion')]" },
+          "storageBlobUrl": { "value": "[reference('StorageAccountInfoDeployment').outputs.storageAccountInfo.value.primaryEndpoints.blob]" }
         }
       }
     }

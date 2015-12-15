@@ -14,7 +14,7 @@
       "value": "User@123"
     },
 
-    "dnsPrefix": {
+    "dnsNameForPublicIP": {
       "value": "hooz"
     }
     
