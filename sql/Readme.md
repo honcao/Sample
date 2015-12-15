@@ -49,6 +49,14 @@ Add-AzureRmEnvironment -Name 'Azure Stack'`
      -GalleryEndpoint ("https://gallery.azurestack.local:30016/")` 
      -GraphEndpoint "https://graph.windows.net/" 
 
+
+Add-AzureRmEnvironment -Name 'AzureStack' `
+    -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/") `
+    -ActiveDirectoryServiceEndpointResourceId $ApplicationId `
+    -ResourceManagerEndpoint ("https://api.azurestack.local/") `
+    -GalleryEndpoint ("https://gallery.azurestack.local/") `
+    -GraphEndpoint "https://graph.windows.net/"
+
 # Get Azure Stack Environment Information 
 $env = Get-AzureRmEnvironment 'Azure Stack' 
 
