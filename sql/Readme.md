@@ -18,6 +18,15 @@ The external load balancer creates an RDP NAT rule to allow connectivity to the 
 
 + 	The image configuration is defined in variables - details below - but the scripts that configure this deployment have only been tested with these versions and may not work on other images.
 
+## Deploying from Portal
+
+Login into Azurestack portal
+Click New -> Custom -> Template deployment
+Copy conent in azuredeploy.json, Click "Edit Tempalte" and paste content, then Click Save
+Fill the parameters
+Click "Create new" to create new Resource Group
+Click Create 
+
 ## Deploying from PowerShell
 
 Download azuredeploy.json and azuredeploy.azurestack.parameters.json to local machine 
@@ -31,7 +40,8 @@ Change working folder to the folder containing this template
 ```PowerShell
 
 # Add specific Azure Stack Environment 
-$AadTenantId = "3dc25382-d7d1-4e5a-ad19-2fb47f1571c2" #GUID Specific to the AAD Tenant 
+#GUID Specific to the AAD Tenant 
+$AadTenantId = <Tenant Id> 
 Add-AzureRmEnvironment -Name 'Azure Stack' ` 
      -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/") ` 
      -ActiveDirectoryServiceEndpointResourceId "https://azurestack.local-api/" ` 
