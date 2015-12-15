@@ -33,7 +33,7 @@ Download azuredeploy.json and azuredeploy.azurestack.parameters.json to local ma
 
 Modify parameter value in azuredeploy.azurestack.parameters.json as needed 
 
-Allow cookies in IE. 
+Allow cookies in IE
 	+	Open IE at c:\Program Files\Internet Explorer\iexplore.exe
 	+	Internet Options -> Privacy -> Advanced 
 	+	Click OK
