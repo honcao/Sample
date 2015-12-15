@@ -71,4 +71,3 @@ New-AzurermResourceGroup -Name $resourceGroupName -Location $location
 #Start new Deployment
 New-AzurermResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName `
     -TemplateParameterFile .\azuredeploy.azurestack.parameters.json -TemplateFile .\azuredeploy.json
-
