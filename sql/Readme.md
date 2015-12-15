@@ -21,11 +21,11 @@ The external load balancer creates an RDP NAT rule to allow connectivity to the 
 ## Deploying from Portal
 
 +	Login into Azurestack portal
-+	Click New -> Custom -> Template deployment
-+	Copy conent in azuredeploy.json, Click "Edit Tempalte" and paste content, then Click Save
++	Click "New" -> "Custom" -> "Template deployment"
++	Copy conent in azuredeploy.json, Click "Edit Tempalte" and paste content, then Click "Save"
 +	Fill the parameters
 +	Click "Create new" to create new Resource Group
-+	Click Create 
++	Click "Create"
 
 ## Deploying from PowerShell
 
