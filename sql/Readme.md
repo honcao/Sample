@@ -33,6 +33,12 @@ Download azuredeploy.json and azuredeploy.azurestack.parameters.json to local ma
 
 Modify parameter value in azuredeploy.azurestack.parameters.json as needed 
 
+Allow cookies in IE. 
+	+	Open IE at c:\Program Files\Internet Explorer\iexplore.exe
+	+	Internet Options -> Privacy -> Advanced 
+	+	Click OK
+	+	Click OK again
+
 Launch a PowerShell console
 
 Change working folder to the folder containing this template
@@ -67,5 +73,5 @@ $location = "Local"
 New-AzurermResourceGroup -Name $resourceGroupName -Location $location 
 
 #Start new Deployment
-New-AzurermResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName -Location $location`  
+New-AzurermResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName -Location $location `  
 -TemplateParameterFile .\azuredeploy.azurestack.parameters.json -TemplateFile .\azuredeploy.json
