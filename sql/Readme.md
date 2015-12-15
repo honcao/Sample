@@ -42,17 +42,10 @@ Change working folder to the folder containing this template
 # Add specific Azure Stack Environment 
 
 $AadTenantId = <Tenant Id> #GUID Specific to the AAD Tenant 
-Add-AzureRmEnvironment -Name 'Azure Stack'` 
-     -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/")` 
-     -ActiveDirectoryServiceEndpointResourceId "https://azurestack.local-api/"` 
-     -ResourceManagerEndpoint ("https://api.azurestack.local/")` 
-     -GalleryEndpoint ("https://gallery.azurestack.local:30016/")` 
-     -GraphEndpoint "https://graph.windows.net/" 
 
-
-Add-AzureRmEnvironment -Name 'AzureStack' `
+Add-AzureRmEnvironment -Name 'Azure Stack' `
     -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/") `
-    -ActiveDirectoryServiceEndpointResourceId $ApplicationId `
+    -ActiveDirectoryServiceEndpointResourceId "https://azurestack.local-api/" `
     -ResourceManagerEndpoint ("https://api.azurestack.local/") `
     -GalleryEndpoint ("https://gallery.azurestack.local/") `
     -GraphEndpoint "https://graph.windows.net/"
