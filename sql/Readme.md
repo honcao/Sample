@@ -40,8 +40,8 @@ Change working folder to the folder containing this template
 ```PowerShell
 
 # Add specific Azure Stack Environment 
-#GUID Specific to the AAD Tenant 
-$AadTenantId = <Tenant Id> 
+
+$AadTenantId = <Tenant Id> #GUID Specific to the AAD Tenant 
 Add-AzureRmEnvironment -Name 'Azure Stack' ` 
      -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/") ` 
      -ActiveDirectoryServiceEndpointResourceId "https://azurestack.local-api/" ` 
@@ -56,8 +56,7 @@ $env = Get-AzureRmEnvironment 'Azure Stack'
 Add-AzureRmAccount -Environment $env -Verbose 
 
 # Get Azure Stack Environment Subscription 
-# The sbuscription name is the offer name by default 
-$SubName = <Subscription Name> 
+$SubName = <Subscription Name> # The sbuscription name is the offer name by default 
 Get-AzureRmSubscription -SubscriptionName $SubName | Select-AzureRmSubscription
 
 #Resource group name. Please make sure the resource group does not exist 
