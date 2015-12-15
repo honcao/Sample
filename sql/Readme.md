@@ -42,11 +42,11 @@ Change working folder to the folder containing this template
 # Add specific Azure Stack Environment 
 
 $AadTenantId = <Tenant Id> #GUID Specific to the AAD Tenant 
-Add-AzureRmEnvironment -Name 'Azure Stack' ` 
-     -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/") ` 
-     -ActiveDirectoryServiceEndpointResourceId "https://azurestack.local-api/" ` 
-     -ResourceManagerEndpoint ("https://api.azurestack.local/") ` 
-     -GalleryEndpoint ("https://gallery.azurestack.local:30016/") ` 
+Add-AzureRmEnvironment -Name 'Azure Stack'` 
+     -ActiveDirectoryEndpoint ("https://login.windows.net/$AadTenantId/")` 
+     -ActiveDirectoryServiceEndpointResourceId "https://azurestack.local-api/"` 
+     -ResourceManagerEndpoint ("https://api.azurestack.local/")` 
+     -GalleryEndpoint ("https://gallery.azurestack.local:30016/")` 
      -GraphEndpoint "https://graph.windows.net/" 
 
 # Get Azure Stack Environment Information 
@@ -66,5 +66,5 @@ $location = "Local"
 New-AzurermResourceGroup -Name $resourceGroupName -Location $location 
 
 #Start new Deployment
-New-AzurermResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName -Location $location  
+New-AzurermResourceGroupDeployment -Name $deploymentName -ResourceGroupName $resourceGroupName -Location $location`  
 -TemplateParameterFile .\azuredeploy.azurestack.parameters.json -TemplateFile .\azuredeploy.json
