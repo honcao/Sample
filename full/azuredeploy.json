@@ -215,7 +215,11 @@
 
     "vmContainerName": "vhds",
     "storageAccountTemplateURL": "[concat(parameters('assetLocation'),'/storageAccount.json')]",
-    "StorageAccountInfoDeployment": "StorageAccountInfoDeployment"
+    "StorageAccountInfoDeployment": "StorageAccountInfoDeployment",
+    "WindowsFeatureName": "Web-Server",
+    "ModulesURL": "[concat(parameters('assetLocation'),'/windowsFeature.zip')]",
+    "ConfigurationFunction": "windowsFeature.ps1\\windowsFeature"
+
   },
 
   "resources": [
@@ -335,15 +339,13 @@
         "accountType": "[parameters('storageAccountType')]"
       }
     },
-
     {
-      "name": "[concat(variables('NICPrefix'), copyindex())]",
+      "name": "[concat(variables('NICPrefix'), '0')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "copy": { "count": 2 },
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[variables('staticSubnetRef')]",
-        "[variables('adRDPNATRuleID')]"
+        "[variables('virtualNetworkName')]",
+        "[variables('publiclbName')]"
       ],
       "apiVersion": "[variables('apiVersion').network]",
       "properties": {
@@ -360,6 +362,28 @@
                   "id": "[variables('adRDPNATRuleID')]"
                 }
               ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[concat(variables('NICPrefix'), '1')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[variables('virtualNetworkName')]"
+      ],
+      "apiVersion": "[variables('apiVersion').network]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('staticSubnetRef')]"
+              }
             }
           }
         ]
@@ -434,11 +458,28 @@
           "networkInterfaces": [
             {
               "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('NICPrefix'), '0'))]"
-            },
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(variables('NICPrefix'), '1'))]"
             }
           ]
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmNamePrefix'), '0','/EnableWindowsFeature')]",
+      "apiVersion": "[variables('apiVersion').compute]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.8",
+        "settings": {
+          "modulesUrl": "[variables('ModulesURL')]",
+          "configurationFunction": "[variables('ConfigurationFunction')]",
+          "properties": {
+            "featureName": "[variables('WindowsFeatureName')]"
+          }
         }
       }
     }
