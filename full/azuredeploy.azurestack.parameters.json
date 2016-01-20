@@ -9,11 +9,7 @@
     "vmNamePrefix": {
       "value": "v####"
     },
-
-    "domainName": {
-      "value": "contoso.com"
-    },
-
+    
     "dnsPrefix": {
       "value": "v####"
     },
