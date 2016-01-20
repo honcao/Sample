@@ -484,6 +484,25 @@
           }
         }
       }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmNamePrefix'), '0','/BGInfo')]",
+      "apiVersion": "[variables('apiVersion').compute]",
+      "dependsOn": [
+        "[concat(parameters('vmNamePrefix'), '0')]"
+      ],
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "autoUpgradeMinorVersion": "true",
+        "type": "BGInfo",
+        "typeHandlerVersion": "2.1",
+        "settings": {
+          "Properties": [
+          ]
+        }
+      }
     }
   ],
 
