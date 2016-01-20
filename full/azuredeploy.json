@@ -102,7 +102,7 @@
         "description": "The password for the Administrator account of the new VMs and Domain"
       }
     },
-     "windowsImagePublisher": {
+    "windowsImagePublisher": {
       "type": "string",
       "metadata": {
         "description": "The Publisher of Windows Image"
@@ -218,7 +218,7 @@
     "StorageAccountInfoDeployment": "StorageAccountInfoDeployment",
     "WindowsFeatureName": "Web-Server",
     "ModulesURL": "[concat(parameters('assetLocation'),'/windowsFeature.zip')]",
-    "ConfigurationFunction": "windowsFeature.ps1\\windowsFeature"
+    "ConfigurationFunction": "windowsFeature.ps1\\EnalbeWindowsFeature"
 
   },
 
@@ -469,11 +469,13 @@
       "apiVersion": "[variables('apiVersion').compute]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
+        "[concat(parameters('vmNamePrefix'), '0')]"
       ],
       "properties": {
         "publisher": "Microsoft.Powershell",
         "type": "DSC",
         "typeHandlerVersion": "2.8",
+        "autoUpgradeMinorVersion": "true",
         "settings": {
           "modulesUrl": "[variables('ModulesURL')]",
           "configurationFunction": "[variables('ConfigurationFunction')]",
