@@ -218,8 +218,9 @@
     "StorageAccountInfoDeployment": "StorageAccountInfoDeployment",
     "WindowsFeatureName": "Web-Server",
     "ModulesURL": "[concat(parameters('assetLocation'),'/windowsFeature.zip')]",
-    "ConfigurationFunction": "windowsFeature.ps1\\EnalbeWindowsFeature"
-
+    "ConfigurationFunction": "windowsFeature.ps1\\EnalbeWindowsFeature",
+    "scriptFileName": "ValidateWindowsFeature.ps1",
+    "scriptFile": "[concat(parameters('assetLocation'),'/',variables('scriptFileName'))]"
   },
 
   "resources": [
@@ -503,6 +504,25 @@
           ]
         }
       }
+    },
+    {
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "name": "[concat(parameters('vmNamePrefix'), '0','/CustomScriptExtension')]",
+    "apiVersion": "[variables('apiVersion').compute]",
+    "location": "[resourceGroup().location]",
+    "dependsOn": [
+      "[concat(parameters('vmNamePrefix'), '0')]"
+    ],
+    "properties": {
+      "publisher": "Microsoft.Compute",
+      "type": "CustomScriptExtension",
+      "typeHandlerVersion": "1.4",
+      "autoUpgradeMinorVersion": "true",
+      "settings": {
+        "fileUris": [ "[variables('scriptFile')]" ],
+        "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',variables('scriptFileName'), ' ', variables('WindowsFeatureName'))]"
+      }
+    }
     }
   ],
 
